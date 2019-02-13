@@ -1,11 +1,11 @@
 /*==========================================
   A matrix will be a 4xN array of doubles
-  Each row will represent an [x, y, z, 1] point.
+  Each column will represent an [x, y, z, 1] point.
   For multiplication purposes, consider the rows like so:
   x0  x1      xn
   y0  y1      yn
   z0  z1  ... zn
-  1  1        1
+  1   1       1
   ==========================================*/
 
 #include <stdio.h>
@@ -21,7 +21,17 @@ Inputs:  struct matrix *m
 print the matrix such that it looks like
 the template in the top comment
 */
-void print_matrix(struct matrix *m) {
+//works as intended
+void print_matrix(struct matrix *m) 
+{
+	for(int rows = 0; rows < m->rows; rows++)
+	{
+		for(int cols = 0; cols < m->cols; cols++)
+		{
+			printf("%f  ", m->m[rows][cols]); 
+		}
+		printf("\n");
+	}
 }
 
 /*-------------- void ident() --------------
@@ -29,7 +39,23 @@ Inputs:  struct matrix *m <-- assumes m is a square matrix
 
 turns m in to an identity matrix
 */
-void ident(struct matrix *m) {
+//works as intended
+void ident(struct matrix *m)
+{
+	for(int rows = 0; rows < m->rows; rows++)
+	{
+		for(int cols = 0; cols < m->cols; cols++)
+		{
+			if(cols == rows)
+			{
+				m->m[rows][cols] = 1;
+			}
+			else
+			{
+				m->m[rows][cols] = 0;
+			}
+		}
+	}
 }
 
 
@@ -40,7 +66,9 @@ Inputs:  struct matrix *a
 multiply a by b, modifying b to be the product
 a*b -> b
 */
-void matrix_mult(struct matrix *a, struct matrix *b) {
+void matrix_mult(struct matrix *a, struct matrix *b)
+{
+	struct matrix *tmp = b;
 }
 
 
@@ -63,9 +91,10 @@ struct matrix *new_matrix(int rows, int cols) {
   struct matrix *m;
 
   tmp = (double **)malloc(rows * sizeof(double *));
-  for (i=0;i<rows;i++) {
+  for (i=0;i<rows;i++) 
+  {
       tmp[i]=(double *)malloc(cols * sizeof(double));
-    }
+  }
 
   m=(struct matrix *)malloc(sizeof(struct matrix));
   m->m=tmp;

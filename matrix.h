@@ -1,7 +1,8 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-struct matrix {
+struct matrix 
+{
   double **m;
   int rows, cols;
   int lastcol;

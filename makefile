@@ -4,22 +4,22 @@ LDFLAGS= -lm
 CC= gcc
 
 run: all
-	./main
+	@./main
 
 all: $(OBJECTS)
-	$(CC) -o main $(OBJECTS) $(LDFLAGS)
+	@$(CC) -o main $(OBJECTS) $(LDFLAGS)
 
 main.o: main.c display.h draw.h ml6.h matrix.h
-	$(CC) -c main.c
+	@$(CC) -c main.c
 
 draw.o: draw.c draw.h display.h ml6.h matrix.h
-	$(CC) $(CFLAGS) -c draw.c
+	@$(CC) $(CFLAGS) -c draw.c
 
 dsiplay.o: display.c display.h ml6.h matrix.h
-	$(CC) $(CFLAGS) -c display.c
+	@$(CC) $(CFLAGS) -c display.c
 
 matrix.o: matrix.c matrix.h
-	$(CC) $(CFLAGS) -c matrix.c
+	@$(CC) $(CFLAGS) -c matrix.c
 
 clean:
-	rm *.o *~
+	@rm *.o *~
