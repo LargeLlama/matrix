@@ -46,14 +46,12 @@ void ident(struct matrix *m)
 	{
 		for(int cols = 0; cols < m->cols; cols++)
 		{
+			//if the row number is equal to the column number
+			//then it is a diagonal so we set it equal to 0, otherwise its 1
 			if(cols == rows)
-			{
 				m->m[rows][cols] = 1;
-			}
 			else
-			{
 				m->m[rows][cols] = 0;
-			}
 		}
 	}
 }
@@ -68,7 +66,26 @@ a*b -> b
 */
 void matrix_mult(struct matrix *a, struct matrix *b)
 {
-	struct matrix *tmp = b;
+	//make a new matrix, with the rows of a and cols of b
+	struct matrix *tmp = new_matrix(a->rows, b->cols); 
+
+	//loop thru the rows and cols of the tmp matrix
+	for(int rows = 0; rows < tmp->rows; rows++)
+	{
+		for (int cols = 0; cols < tmp->cols; cols++)
+		{
+			//loop thru the rows and cols of the other matrices and perform the operation
+			for (int new = 0; new < tmp->rows; new++)
+			{
+				tmp->m[rows][cols] += a->m[rows][new] * b->m[new][cols];
+			}
+		}
+	}
+	//assign the new values of b to the values of tmp and free tmp
+	b->m= tmp->m;
+	b->rows = tmp->rows;
+	b->cols = tmp->cols;
+	free(tmp);
 }
 
 
