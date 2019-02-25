@@ -6,20 +6,22 @@
 #include "display.h"
 #include "draw.h"
 #include "matrix.h"
+#include <math.h>
 
 int main() {
 
-  screen s;
-  struct matrix *edges;
+  //testing matrix functions
 
-  //put some values in edges to see that it works
-  edges = new_matrix(4, 5);
-  edges->m[0][0] = 1.1;
-  edges->m[1][0] = 1.1;
+  struct matrix *mat;
+
+  //put some values in mat to see that it works
+  mat = new_matrix(4, 5);
+  mat->m[0][0] = 1.1;
+  mat->m[1][0] = 1.1;
 
   //prints it out
   printf("Testing print_matrix\n");
-  print_matrix(edges);
+  print_matrix(mat);
 
   //make test an identity matrix
   struct matrix *test = new_matrix(5, 5);
@@ -29,9 +31,9 @@ int main() {
   
   //free test matrices
   free_matrix(test);
-  free_matrix( edges );
+  free_matrix( mat );
   
-  struct matrix *uwu = new_matrix(4, 3);
+  struct matrix *uwu = new_matrix(3, 3);
   int tmp = 0;
 
   for(int rows = 0; rows < uwu->rows; rows++)
@@ -45,7 +47,7 @@ int main() {
   printf("\nPrinting matrix uwu\n");
   print_matrix(uwu);
  
-  struct matrix *owo = new_matrix(3, 4);
+  struct matrix *owo = new_matrix(3, 3);
   tmp = 0;
 
   for(int rows = 0; rows < owo->rows; rows++)
@@ -71,4 +73,38 @@ int main() {
   matrix_mult(owo, identity);
   printf("\nTesting multiplication with ident\nowo * IDENTITY\n");
   print_matrix(identity); 
+
+
+
+  //image generation
+  screen s;
+  color c;
+
+  c.red = MAX_COLOR / 2;
+  c.green = 0;
+  c.blue = MAX_COLOR;
+
+  clear_screen(s);
+  struct matrix *edges;
+
+  c.red = 235;
+  c.green = 65;
+  c.blue = 0;
+
+  edges = new_matrix(4, 1);
+
+  for(int i = 0; i < 100; i++)
+  {
+	 int x0 = 200 + (300 * sin(M_PI * i / 100));
+	 int y0 = 100 + (300 * cos(M_PI * i / 100));
+	 int x1 = 200 + (300 * cos(M_PI * i / 100));
+	 int y1 = 100 + (300 * sin(M_PI * i / 100));
+
+	 add_edge(edges, x0, y0, 0, x1, y1, 0);
+  }
+  draw_lines( edges, s, c );
+  free_matrix( edges);
+
+  save_extension(s, "matrix.png");
+  display(s); 
 } 

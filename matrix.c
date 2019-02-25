@@ -64,6 +64,7 @@ Inputs:  struct matrix *a
 multiply a by b, modifying b to be the product
 a*b -> b
 */
+//works for square matrices
 void matrix_mult(struct matrix *a, struct matrix *b)
 {
 	//make a new matrix, with the rows of a and cols of b
@@ -82,10 +83,8 @@ void matrix_mult(struct matrix *a, struct matrix *b)
 		}
 	}
 	//assign the new values of b to the values of tmp and free tmp
-	b->m= tmp->m;
-	b->rows = tmp->rows;
-	b->cols = tmp->cols;
-	free(tmp);
+	copy_matrix(tmp, b);
+	free_matrix(tmp);
 }
 
 

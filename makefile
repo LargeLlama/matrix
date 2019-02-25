@@ -7,7 +7,7 @@ run: all
 	@./main
 
 all: $(OBJECTS)
-	@$(CC) -o main $(OBJECTS) $(LDFLAGS)
+	@$(CC) -o main $(OBJECTS) $(LDFLAGS) -lm
 
 main.o: main.c display.h draw.h ml6.h matrix.h
 	@$(CC) -c main.c
