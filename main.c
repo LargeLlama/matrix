@@ -80,25 +80,21 @@ int main() {
   screen s;
   color c;
 
-  c.red = MAX_COLOR / 2;
-  c.green = 0;
-  c.blue = MAX_COLOR;
-
   clear_screen(s);
   struct matrix *edges;
 
-  c.red = 235;
-  c.green = 65;
-  c.blue = 0;
+  c.red = 100;
+  c.green = 0;
+  c.blue = 255;
 
   edges = new_matrix(4, 1);
 
-  for(int i = 0; i < 100; i++)
+  for(int i = 0; i < 1000; i++)
   {
-	 int x0 = 200 + (300 * sin(M_PI * i / 100));
-	 int y0 = 100 + (300 * cos(M_PI * i / 100));
-	 int x1 = 200 + (300 * cos(M_PI * i / 100));
-	 int y1 = 100 + (300 * sin(M_PI * i / 100));
+	 int x0 = 100 + (400 * sin(M_PI * i / 100));
+	 int y0 = 200 + (300 * cos(M_PI * i / 1000));
+	 int x1 = 100 + (300 * cos(M_PI * i / 100));
+	 int y1 = 200 + (300 * sin(M_PI * i / 100));
 
 	 add_edge(edges, x0, y0, 0, x1, y1, 0);
   }
